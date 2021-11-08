@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize')
-const db = reuqire('../config/db')
+const db = require('../config/db')
 const bcrypt = require('bcryptjs')
 
 const User = db.define('user',{
     user_id : {
         type :Sequelize.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey : true,
         unique:true
     },
@@ -28,9 +28,11 @@ const User = db.define('user',{
             const salt = bcrypt.genSaltSync(10)
             const hash = bcrypt.hashSync(value,salt)
             console.log(hash)
-            this.setDataValue('password', hash);
+            this.setDataValue('user_password', hash);
           }
     },
+},{
+    timestamps : true
 })
 
 module.exports = User;
